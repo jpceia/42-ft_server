@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build -t ft_server .
+docker build -t ft_server:latest .
