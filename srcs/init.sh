@@ -1,12 +1,14 @@
 #!/bin/bash
 
+# Check nginx config file
+nginx -t
+
 # Starting services
 service nginx start
 service mysql start
 service php7.3-fpm start
 
 # Checking services status
-nginx -t
 service nginx status
 service mysql status
 service php7.3-fpm status
