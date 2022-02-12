@@ -2,7 +2,8 @@
 
 if  [ $# -eq 1 ] && [[ $1 == "on" || $1 == "off" ]]
 then
-	sed -i "s/$AUTOINDEX/$1/g" /etc/nginx/conf.d/nginx.template > /etc/nginx/sites-available/ft_server.conf
+	AUTOINDEX=$1
+	sed 's@$AUTOINDEX@'"$AUTOINDEX"'@' < /etc/nginx/conf.d/nginx.template > /etc/nginx/sites-available/ft_server.conf
 	service nginx reload
 else
 	echo "usage: autoindex (on|off)"
