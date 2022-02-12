@@ -31,10 +31,14 @@ COPY ./srcs/wp-config.php /var/www/html
 # SSL Certificate Setting
 RUN openssl req -x509 -nodes -days 365 -subj "/C=PT/ST=Portugal/L=Lisbon/O=42/OU=42Lisboa/CN=jceia" -newkey rsa:2048 -keyout /etc/ssl/nginx-selfsigned.key -out /etc/ssl/nginx-selfsigned.crt;
 
-# Change authorization and init bash
+# Change authorization
 RUN chown -R www-data:www-data *
 RUN chmod -R 755 /var/www/*
 
+COPY ./srcs/autoindex /usr/bin/
+RUN chmod 755 /usr/bin/autoindex
+
+# init script and launch bash
 COPY ./srcs/init.sh ./
 
 CMD bash init.sh

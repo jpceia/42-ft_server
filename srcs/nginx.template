@@ -19,12 +19,12 @@ server {
 	ssl_certificate_key /etc/ssl/nginx-selfsigned.key;
 
 	root /var/www/html;
-	autoindex on;
 	index index.html index.htm index.nginx-debian.html index.php;
 
 	location / {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.
+		autoindex $AUTOINDEX;
 		try_files $uri $uri/ =404;
 	}
 	location ~ \.php$ {
