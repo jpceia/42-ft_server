@@ -1,11 +1,15 @@
 #!/bin/bash
 
-if  [ $# -eq 1 ] && [[ $1 == "on" || $1 == "off" ]]
+nginx_config=/etc/nginx/sites-available/ft_server.conf
+grep "autoindex on;" $nginx_config > /dev/null
+
+if [ $? -eq 0 ];
 then
-	AUTOINDEX=$1
-	sed 's@$AUTOINDEX@'"$AUTOINDEX"'@' < /etc/nginx/conf.d/nginx.template > /etc/nginx/sites-available/ft_server.conf
-	service nginx reload
+	echo "Switching autoindex from ON to OFF"
+	sed -i 's/autoindex on/autoindex off/g' $nginx_config
 else
-	echo "usage: autoindex (on|off)"
+	echo "Switching autoindex from OFF to ON"
+	sed -i 's/autoindex off/autoindex on/g' $nginx_config
 fi
 
+service nginx reload

@@ -1,8 +1,10 @@
 #!/bin/bash
 
 # Write nginx config from template
-sed 's@$AUTOINDEX@'"$AUTOINDEX"'@' < /etc/nginx/conf.d/nginx.template > /etc/nginx/sites-available/ft_server.conf
-ln -s /etc/nginx/sites-available/ft_server.conf /etc/nginx/sites-enabled/ # creates symbolic link
+nginx_template=/etc/nginx/conf.d/nginx.template
+nginx_config=/etc/nginx/sites-available/ft_server.conf
+sed 's@$AUTOINDEX@'"$AUTOINDEX"'@' < $nginx_template > $nginx_config
+ln -s $nginx_config /etc/nginx/sites-enabled/ # creates symbolic link
 
 # Check nginx config file
 nginx -t
