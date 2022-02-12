@@ -8,7 +8,7 @@ WORKDIR /var/www/html/
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get -y install wget		# for downloads
-RUN apt-get -y install gettext-base	# for envsubst
+# RUN apt-get -y install gettext-base	# for envsubst
 
 # Install nginx
 RUN apt-get -y install nginx
@@ -39,7 +39,9 @@ RUN wget https://wordpress.org/latest.tar.gz
 RUN tar -xvzf latest.tar.gz && rm -rf latest.tar.gz
 
 # SSL Certificate Setting
-RUN openssl req -x509 -nodes -days 365 -subj "/C=PT/ST=Portugal/L=Lisbon/O=42/OU=42Lisboa/CN=jceia" -newkey rsa:2048 -keyout /etc/ssl/nginx-selfsigned.key -out /etc/ssl/nginx-selfsigned.crt;
+# https://stackoverflow.com/questions/68948910/make-a-certificate-for-testing-purposes-but-not-self-signed
+RUN openssl req -x509 -nodes -days 365 -subj "/C=PT/ST=Portugal/L=Lisbon/O=42School/OU=42Lisboa/CN=jceia" \
+	-newkey rsa:2048 -keyout /etc/ssl/nginx-selfsigned.key -out /etc/ssl/nginx-selfsigned.crt;
 
 # Change authorization
 RUN chown -R www-data:www-data *
